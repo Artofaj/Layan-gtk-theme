@@ -5913,12 +5913,8 @@ button.emoji-section:last-child {
 }
 
 .nautilus-window paned > separator {
-  min-width: 20px;
   color: transparent;
-  background-image: url("assets/scalable/side-paned.svg");
-  background-size: 20px 750px;
-  background-position: left center;
-  background-repeat: no-repeat;
+  display: none;
 }
 
 .nautilus-window .floating-bar {
