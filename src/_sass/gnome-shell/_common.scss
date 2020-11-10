@@ -31,7 +31,7 @@ $cakeisalie: "This stylesheet is generated, DO NOT EDIT";
 }
 
 stage {
-  font-family: $font-family;
+  // font-family: $font-family;
   @include font(body-1);
   color: $fg_color;
 }
@@ -85,6 +85,7 @@ StEntry {
   border-radius: 0;
   border-width: 0;
   color: $fg_color;
+  caret-color: $fg_color;
   selection-background-color: $primary_color;
   selected-color: $inverse_fg_color;
   @include font(subheading);
@@ -96,6 +97,14 @@ StEntry {
     icon-size: 16px;
     warning-color: $warning_color;
     padding: 0 0;
+  }
+  StIcon.peek-password {
+    icon-size: 16px;
+    padding: 0 4px;
+  }
+  StLabel.hint-text {
+    margin-left: 2px;
+    color: $secondary_fg_color;
   }
 }
 
@@ -210,7 +219,7 @@ StScrollBar {
 
 /* Switches */
 .toggle-switch {
-  width: 50px;
+  width: 40px;
   height: 20px;
   background-size: contain;
   background-image: url("assets/toggle-off.svg");
@@ -605,29 +614,32 @@ StScrollBar {
 /* Popovers/Menus */
 
 .popup-menu {
-  min-width: 200px;
-  color: $fg_color;
+  min-width: 15em;
+  color: $secondary_fg_color;
+  background: none;
 
   // .popup-menu-arrow { } //defined globally in the TOP BAR
 
   .popup-sub-menu {
     background-color: $alt_lighter_bg_color;
-    box-shadow: $shadow_0;
+    box-shadow: none;
+    border-color: rgba(0, 0, 0, 0.08); //border: none;
   }
 
-  .popup-menu-content { padding: 8px 0; }
+  .popup-menu-content { padding: 10px 0; }
   .popup-menu-item {
     // min-height: $menuitem_size - 4px * 2;
     spacing: 8px;
     transition-duration: $shorter_duration;
 
-    &:ltr { padding: 0.4em 24px 0.4em 0; }
-    &:rtl { padding: 0.4em 0 0.4em 24px; }
+    &:ltr { padding-right:1.75em; padding-left: 0; padding-top: 6px; padding-bottom: 6px; }
+    &:rtl { padding-right: 0; padding-left:1.75em; padding-top: 6px; padding-bottom: 6px; }
 
     &:checked {
       background-color: $primary_color;
       color: $inverse_fg_color;
-      box-shadow: $shadow_0;
+      box-shadow: none;
+      border: none;
       font-weight: normal;
 
       &.selected {
@@ -647,6 +659,8 @@ StScrollBar {
       background-color: $divider_color;
       color: $fg_color;
       transition-duration: 0ms;
+      box-shadow: none;
+      border: none;
     }
 
     &:active {
@@ -660,9 +674,9 @@ StScrollBar {
   }
 
   .popup-inactive-menu-item { //all icons and other graphical elements
-    color: $fg_color;
+    color: $disabled_fg_color;
 
-    &:insensitive { color: $disabled_fg_color; }
+    &:insensitive { color: $disabled_secondary_fg_color; }
   }
 
   //.popup-status-menu-item { font-weight: normal;  color: pink; } //dunno what that is
@@ -713,13 +727,22 @@ StScrollBar {
 }
 
 .popup-separator-menu-item {
-  //-margin-horizontal: 24px;
-  height: 1px; //not really the whole box
-  margin: 8px 64px - 24px;
-  background-color: transparent;
-  border-color: $border_color;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
+  margin: 0;
+  padding: 0 0;
+  background: none;
+  border: none;
+
+  .popup-separator-menu-item-separator {
+    height: 1px; //not really the whole box
+    margin: 0 42px;
+    background-color: $border_color;
+    padding: 0 0;
+
+    .popup-sub-menu & { //submenu separators
+      padding: 0 0;
+      margin: 0 54px 0 24px;
+    }
+  }
 }
 
 // Background menu
@@ -983,6 +1006,15 @@ StScrollBar {
     }
   }
 
+  .panel-button.clock-display {
+    &:active, &:overview, &:focus, &:checked {
+      .clock {
+        background: none;
+        box-shadow: none;
+      }
+    }
+  }
+
   .panel-status-indicators-box,
   .panel-status-menu-box {
     spacing: 2px;
@@ -1050,362 +1082,486 @@ StScrollBar {
   }
 }
 
-  // calendar popover
-  #calendarArea {
-    padding: 8px 16px;
+// calendar popover
+.clock-display-box {
+  spacing: 4px;
+
+  .clock {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}
+
+#calendarArea {
+  padding: 8px 12px;
+}
+
+.calendar {
+  margin-bottom: 0;
+  background: none;
+  box-shadow: none;
+  border: none;
+  padding: 0;
+}
+
+.calendar,
+.datemenu-today-button,
+.datemenu-displays-box,
+.message-list-sections {
+  margin: 0 8px;
+}
+
+.datemenu-displays-section { padding-bottom: 0; }
+.datemenu-displays-box { spacing: 8px; }
+
+.datemenu-calendar-column {
+  spacing: 8px;
+  border: 0 solid $border_color;
+  padding: 0 0;
+  &:ltr { border-left-width: 0; }
+  &:rtl { border-right-width: 0; }
+}
+
+.datemenu-today-button {
+  min-height: $menuitem_size * 2 - 4px * 2;
+}
+
+.message-list-section-list:ltr {
+  padding-left: 0;
+}
+
+.message-list-section-list:rtl {
+  padding-right: 0;
+}
+
+.datemenu-today-button,
+.world-clocks-button,
+.weather-button,
+.events-section-title {
+  min-height: $menuitem_size - 4px * 2;
+  padding: 4px 8px;
+  border-radius: $buttons_radius;
+  background: none;
+  box-shadow: none;
+  border: none;
+  color: $secondary_fg_color;
+
+  &:hover, &:focus { color: $fg_color; background-color: $divider_color; }
+  &:active, &:checked {
+    color: $fg_color;
+    background-color: $track_color;
+  }
+}
+
+.datemenu-today-button .date-label {
+  @include font(headline);
+}
+
+.world-clocks-header,
+.weather-header,
+.events-section-title {
+  color: $secondary_fg_color;
+  font-weight: bold;
+}
+
+/* World Clock */
+.world-clocks-grid,
+.weather-grid {
+  spacing-rows: 0.4em;
+  spacing-columns: 0.8em;
+}
+
+.world-clocks-city {
+  color: $hint_fg_color;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.world-clocks-time {
+  color: $hint_fg_color;
+  font-feature-settings: "tnum";
+  font-size: 1.2em;
+}
+
+.world-clocks-timezone {
+  color: $hint_fg_color;
+  font-feature-settings: "tnum";
+  font-size: 0.9em;
+}
+
+/* Weather */
+.weather-button {
+  padding: 12px;
+
+  .weather-box {
+    spacing: 0.5em;
   }
 
-  .calendar {
-    margin-bottom: 0;
+  .weather-header-box {
+    spacing: 6px;
   }
 
-    .calendar,
-    .datemenu-today-button,
-    .datemenu-displays-box,
-    .message-list-sections {
-      margin: 0 8px;
-    }
-
-    .datemenu-calendar-column { spacing: 8px; }
-    .datemenu-displays-section { padding-bottom: 0; }
-    .datemenu-displays-box { spacing: 8px; }
-
-    .datemenu-calendar-column {
-      border: 0 solid $border_color;
-      &:ltr { border-left-width: 0; }
-      &:rtl { border-right-width: 0; }
-    }
-
-    .datemenu-today-button,
-    .world-clocks-button,
-    .weather-button,
-    .events-section-title {
-      min-height: $menuitem_size - 4px * 2;
-      padding: 4px 8px;
-      border-radius: $buttons_radius;
-    }
-
-    .datemenu-today-button {
-      min-height: $menuitem_size * 2 - 4px * 2;
-    }
-
-    .message-list-section-list:ltr {
-      padding-left: 0;
-    }
-
-    .message-list-section-list:rtl {
-      padding-right: 0;
-    }
-
-    .datemenu-today-button,
-    .world-clocks-button,
-    .weather-button,
-    .events-section-title {
-      &:hover,&:focus { color: $fg_color; background-color: $divider_color; }
-      &:active {
-        color: $fg_color;
-        background-color: $track_color;
-      }
-    }
-
-    .datemenu-today-button .day-label {
-    }
-
-    .datemenu-today-button .date-label {
-      @include font(headline);
-    }
-
-    .world-clocks-header,
-    .weather-header,
-    .events-section-title {
-      color: $secondary_fg_color;
-      font-weight: bold;
-    }
-
-    .world-clocks-grid {
-      spacing-rows: 0.4em;
-    }
-
-    .weather-box {
-      spacing: 0.4em;
-    }
-
-    .calendar-month-label {
-      height: $menuitem_size - 6px * 2;
-      margin: 2px;
-      padding: 6px 16px;
-      border-radius: $buttons_radius;
-      color: $fg_color;
-      font-weight: bold;
-      text-align: center;
-      &:focus { background-color: $divider_color; }
-    }
-
-    .pager-button {
-      width: $menuitem_size;
-      height: $menuitem_size;
-      margin: 2px;
-      border-radius: 100px;
-      background-color: transparent;
-      color: $fg_color;
-      &:hover, &:focus { background-color: $divider_color; }
-      &:active { background-color: $track_color; }
-    }
-
-      .calendar-change-month-back { //arrow back
-        background-image: url("assets/calendar-arrow-left.svg");
-        &:rtl { background-image: url("assets/calendar-arrow-right.svg"); }
-      }
-      .calendar-change-month-forward { //arrow foreward
-        background-image: url("assets/calendar-arrow-right.svg");
-        &:rtl { background-image: url("assets/calendar-arrow-left.svg"); }
-      }
-
-    .calendar-day-base {
-      @include font(caption);
-      text-align: center;
-      width: $menuitem_size; height: $menuitem_size;
-      padding: 0;
-      margin: 2px;
-      border-radius: 100px;
-      &:hover,&:focus { background-color: $divider_color; }
-      &:active {
-        color: inherit;
-        background-color: $track_color;
-        border-color: transparent; //avoid jumparound due to today
-      }
-      &:selected {
-        color: $inverse_fg_color;
-        background-color: $primary_color;
-        border-color: transparent; //avoid jumparound due to today
-      }
-      &.calendar-day-heading {  //day of week heading
-        width: $menuitem_size; height: $menuitem_size - 7px;
-        margin-top: 2px;
-        padding: 7px 0 0;
-        border-radius: 100px;
-        background-color: transparent;
-        color: $hint_fg_color;
-        @include font(caption);
-        font-weight: bold;
-        text-align: center;
-      }
-    }
-      .calendar-day { //border collapse hack - see calendar.js
-        border-width: 0;
-      }
-      .calendar-day-top { border-top-width: 0; }
-      .calendar-day-left { border-left-width: 0; }
-      .calendar-work-day {
-
-      }
-      .calendar-nonwork-day {
-        color: $fg_color;
-      }
-      .calendar-today {
-        font-weight: bold !important;
-        //color: $fg_color;
-        //background-color: transparent;
-        border: none;
-      }
-      .calendar-day-with-events {
-        color: $link_color;
-        font-weight: normal;
-        text-decoration: underline;
-        background-image: none;
-      }
-      .calendar-other-month-day {
-        color: $disabled_secondary_fg_color;
-        opacity: 0.5;
-      }
-      .calendar-week-number {
-        width: $menuitem_size; height: $menuitem_size - 7px;
-        margin: 2px;
-        padding: 7px 0 0;
-        border-radius: 100px;
-        background-color: transparent;
-        color: $hint_fg_color;
-        font-size: inherit;
-        font-weight: bold;
-        text-align: center;
-      }
-
-      /* Message list */
-      .message-list {
-        width: 420px;
-      }
-
-        .message-list-clear-button.button {
-          background-color: transparent;
-          &:hover,&:focus { background-color: $divider_color; }
-          &:active { background-color: $track_color; }
-          margin: 8px 8px 0;
-        }
-
-        .message-list-sections {
-          spacing: 8px;
-        }
-
-        .message-list-section,
-        .message-list-section-list {
-          spacing: 8px;
-        }
-
-        .message {
-          min-height: $menuitem_size * 2;
-          background-color: transparent;
-          border: none;
-          &:hover,&:focus { background-color: $divider_color; }
-          &:active { background-color: $track_color; }
-          border-radius: $buttons_radius;
-        }
-
-          .message-icon-bin {
-            padding: 8px 0px 8px 8px;
-            &:rtl { padding: 8px 8px 8px 0px; }
-          }
-
-          .message-icon-bin > StIcon {
-            color: $fg_color;
-            icon-size: em(16px);
-            -st-icon-style: requested;
-            margin: 4px 0px 4px 4px;
-            &:rtl { margin: 4px 4px 4px 0px; }
-          }
-
-          .message-secondary-bin {
-            padding: 0 8px;
-          }
-
-          .message-secondary-bin > .event-time {
-            min-height: $small_size - 2px;
-            padding-top: 2px;
-            color: $secondary_fg_color;
-            font-size: 1em;
-            /* HACK: the label should be baseline-aligned with a 1em label,
-                     fake this with some bottom padding */
-            padding-bottom: 0;
-          }
-
-          .message-secondary-bin > StIcon {
-            icon-size: em(16px);
-          }
-
-          .message-title {
-            min-height: $small_size - 2px;
-            padding-top: 2px;
-            color: $fg_color;
-            font-weight: bold;
-            font-size: 1em;
-          }
-
-          .message-content {
-            min-height: $menuitem_size * 2 - 8px * 2;
-            padding: 8px;
-            color: $secondary_fg_color;
-            font-size: 1em;
-          }
-
-          .message-content * > StIcon {
-            icon-size: 16px;
-            border-radius: 16px;
-            padding: ($small_size - 16px) / 2;
-            color: $secondary_fg_color;
-          }
-
-          /* FIXME: how do you do this in sass? */
-          .message-content *:hover > StIcon,
-          .message-content *:focus > StIcon {
-            color: $fg_color;
-            background-color: $divider_color;
-          }
-
-          .message-content *:active > StIcon {
-            color: $fg_color;
-            background-color: $track_color;
-          }
-
-          .message-media-control {
-            margin: 16px 0;
-            padding: 8px;
-            border-radius: 100px;
-            color: $secondary_fg_color;
-            &:hover,&:focus { color: $fg_color; background-color: $divider_color; }
-            &:active { color: $fg_color; background-color: $track_color; }
-            &:insensitive { color: $disabled_secondary_fg_color; }
-
-            &:last-child:ltr { margin-right: 16px; padding-right: 8px; }
-            &:last-child:rtl { margin-left: 16px; padding-left: 8px; }
-          }
-
-          .media-message-cover-icon {
-            icon-size: 32px !important;
-            margin: 8px 0px 8px 4px !important;
-            &:rtl { margin: 8px 4px 8px 0px !important; }
-            &.fallback {
-              icon-size: 16px !important;
-              padding: 8px;
-              border: none;
-              border-radius: $windows_radius;
-              background-color: $divider_color;
-              color: $hint_fg_color;
-            }
-          }
-
-
-  // a little unstructured mess:
-
-  .system-switch-user-submenu-icon.user-icon {
-    icon-size: 20px;
-    padding: 0 2px;
-  }
-  .system-switch-user-submenu-icon.default-icon {
-    icon-size: 16px;
-    padding: 0 4px;
-  }
-
-  #appMenu {
-    spinner-image: url("process-working.svg");
-    spacing: 4px;
-
-    .label-shadow { color: transparent; }
-  }
-
-  .aggregate-menu {
-    min-width: 280px;
-    .popup-menu-icon { padding: 0 4px; }
-    .popup-sub-menu .popup-menu-item :first-child {
-      &:ltr { /* 8px spacing + 2*4px padding */
-              padding-left: 16px; margin-left: em(16px); }
-      &:rtl { /* 8px spacing + 2*4px padding */
-              padding-right: 16px; margin-right: em(16px); }
-    }
-  }
-
-  .system-menu-action {
+  .weather-header {
     color: $secondary_fg_color;
-    border-radius: 100px; /* wish we could do 50% */
-    padding: ($large_size - 16px) / 2;
-    border: none;
-    -st-icon-style: symbolic; // >= 3.29.90
+    font-weight: bold;
+
+    &.location {
+      font-weight: normal;
+      color: $hint_fg_color;
+    }
+  }
+
+  .weather-grid {
+    spacing-rows: 6px;
+    spacing-columns: 12px;
+  }
+
+  .weather-forecast-time {
+    color: $secondary_fg_color;
+    font-feature-settings: "tnum";
+    font-size: 9pt;
+    font-weight: normal;
+    padding-top: 0.2em;
+    padding-bottom: 0.4em;
+  }
+
+  .weather-forecast-icon {
+    icon-size: 32px;
+  }
+
+  .weather-forecast-temp {
+    font-weight: bold;
+  }
+}
+
+.calendar-month-label {
+  height: $menuitem_size - 6px * 2;
+  margin: 2px;
+  padding: 6px 16px;
+  border-radius: $buttons_radius;
+  color: $fg_color;
+  font-weight: bold;
+  text-align: center;
+  &:focus { background-color: $divider_color; }
+}
+
+.pager-button {
+  width: $menuitem_size;
+  height: $menuitem_size;
+  margin: 2px;
+  border-radius: 100px;
+  background-color: transparent;
+  color: $fg_color;
+  &:hover, &:focus { background-color: $divider_color; }
+  &:active { background-color: $track_color; }
+}
+
+.calendar-change-month-back { //arrow back
+  background-image: url("assets/calendar-arrow-left.svg");
+  &:rtl { background-image: url("assets/calendar-arrow-right.svg"); }
+}
+.calendar-change-month-forward { //arrow foreward
+  background-image: url("assets/calendar-arrow-right.svg");
+  &:rtl { background-image: url("assets/calendar-arrow-left.svg"); }
+}
+
+.calendar-day-base {
+  @include font(caption);
+  text-align: center;
+  width: $menuitem_size; height: $menuitem_size;
+  padding: 0;
+  margin: 2px;
+  border-radius: 1000px;
+  color: $secondary_fg_color;
+  font-feature-settings: "tnum";
+  &:hover,&:focus { background-color: $divider_color; }
+  &:active {
+    color: inherit;
+    background-color: $track_color;
+    border-color: transparent; //avoid jumparound due to today
+  }
+  &:selected {
+    color: $inverse_fg_color;
+    background-color: $primary_color;
+    border-color: transparent; //avoid jumparound due to today
+  }
+  &.calendar-day-heading {  //day of week heading
+    width: $menuitem_size; height: $menuitem_size - 7px;
+    margin-top: 2px;
+    padding: 7px 0 0;
+    border-radius: 100px;
+    background-color: transparent;
+    color: $hint_fg_color;
+    @include font(caption);
+    font-weight: bold;
+    text-align: center;
+  }
+}
+.calendar-day { //border collapse hack - see calendar.js
+  border-width: 0;
+}
+.calendar-day-top { border-top-width: 0; }
+.calendar-day-left { border-left-width: 0; }
+// .calendar-work-day {}
+.calendar-nonwork-day {
+  color: $fg_color;
+}
+.calendar-today {
+  font-weight: bold !important;
+  color: white;
+  background-color: $primary_color;
+  border: none;
+
+  &:hover, &:focus {
+    background-color:lighten($primary_color, 3%);
+    color: white;
+  }
+
+  &:active, &:selected {
+    background-color: $primary_color;
+    color: white;
 
     &:hover, &:focus {
-      background-color: $divider_color;
-      color: $fg_color;
-      border: none;
-      padding: ($large_size - 16px) / 2;
+      background-color:lighten($primary_color, 3%);
+      color: white;
     }
-    &:active { background-color: $track_color; color: $fg_color; }
-
-    & > StIcon { icon-size: 16px; }
   }
+}
+.calendar-day-with-events {
+  color: $link_color;
+  font-weight: normal;
+  text-decoration: underline;
+  background-image: none;
+
+  &.calendar-work-day {
+    color: $hint_fg_color;
+    font-weight: bold;
+  }
+}
+.calendar-other-month-day {
+  color: $disabled_secondary_fg_color;
+  opacity: 0.5;
+}
+.calendar-week-number {
+  width: $menuitem_size; height: $menuitem_size - 7px;
+  margin: 2px;
+  padding: 7px 0 0;
+  border-radius: 100px;
+  background-color: transparent;
+  color: $hint_fg_color;
+  font-size: inherit;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Message list */
+.message-list {
+  width: 31.5em;
+  padding: 0 12px;
+  color: $secondary_fg_color;
+  text-shadow: none;
+
+  .message-list-placeholder { spacing: 12px; }
+}
+
+.message-list-clear-button.button {
+  background-color: transparent;
+  &:hover,&:focus { background-color: $divider_color; }
+  &:active { background-color: $track_color; }
+  margin: 8px 8px 0;
+}
+
+.message-list-section,
+.message-list-sections,
+.message-list-section-list {
+  spacing: 8px;
+}
+
+// do-not-disturb + clear button
+.message-list-controls {
+  margin: 8px 16px 0;
+  // NOTE: remove the padding if notification_bubble could remove margin for drop shadow
+  padding: 4px;
+  spacing: 16px;
+}
+
+.message {
+  min-height: $menuitem_size * 2;
+  background-color: transparent;
+  border: none;
+  border-radius: $buttons_radius;
+  color: $secondary_fg_color;
+  text-shadow: none;
+  &:hover,&:focus { background-color: $divider_color; }
+  &:active { background-color: $track_color; }
+}
+
+.message-icon-bin {
+  padding: 8px 0px 8px 8px;
+  &:rtl { padding: 8px 8px 8px 0px; }
+}
+
+.message-icon-bin > StIcon {
+  // color: $fg_color;
+  icon-size: 32px; // 32px
+  -st-icon-style: symbolic;
+  margin: 8px 0px 8px 8px;
+  &:rtl { margin: 8px 8px 8px 0px; }
+}
+
+.message-secondary-bin {
+  padding: 0 8px;
+}
+
+.message-secondary-bin > .event-time {
+  min-height: $small_size - 2px;
+  padding-top: 2px;
+  color: $secondary_fg_color;
+  font-size: 1em;
+  padding-bottom: 0;
+}
+
+.message-secondary-bin > StIcon {
+  icon-size: em(16px);
+}
+
+.message-title {
+  min-height: $small_size - 2px;
+  padding-top: 2px;
+  color: $fg_color;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.message-content {
+  min-height: $menuitem_size * 2 - 8px * 2;
+  padding: 8px;
+  color: $secondary_fg_color;
+  font-size: 1em;
+}
+
+// .message-content * > StIcon {
+//   icon-size: 16px;
+//   border-radius: 16px;
+//   padding: ($small_size - 16px) / 2;
+//   color: $secondary_fg_color;
+// }
+//
+// /* FIXME: how do you do this in sass? */
+// .message-content *:hover > StIcon,
+// .message-content *:focus > StIcon {
+//   color: $fg_color;
+//   background-color: $divider_color;
+// }
+//
+// .message-content *:active > StIcon {
+//   color: $fg_color;
+//   background-color: $track_color;
+// }
+
+// close button
+.message-close-button {
+  color: $secondary_fg_color;
+  padding: 0;
+  height: 24px;
+  width: 24px;
+  border-radius: 100px;
+
+  &:hover, &:focus { color: $fg_color; background-color: $divider_color; }
+  &:active { color: $fg_color; background-color: $track_color; }
+  &:insensitive { color: $disabled_secondary_fg_color; }
+}
+
+// body
+.message-body {
+  color: $hint_fg_color;
+}
+
+.message-media-control {
+  margin: 16px 4px;
+  padding: 8px;
+  border-radius: 100px;
+  color: $secondary_fg_color;
+  &:hover,&:focus { color: $fg_color; background-color: $divider_color; }
+  &:active { color: $fg_color; background-color: $track_color; }
+  &:insensitive { color: $disabled_secondary_fg_color; }
+
+  &:last-child:ltr { margin-right: 16px; padding-right: 8px; }
+  &:last-child:rtl { margin-left: 16px; padding-left: 8px; }
+}
+
+.media-message-cover-icon {
+  icon-size: 32px !important;
+  margin: 8px 0px 8px 4px !important;
+  &:rtl { margin: 8px 4px 8px 0px !important; }
+  &.fallback {
+    icon-size: 16px !important;
+    padding: 8px;
+    border: none;
+    border-radius: $windows_radius;
+    background-color: $divider_color;
+    color: $hint_fg_color;
+  }
+}
+
+// a little unstructured mess:
+
+.system-switch-user-submenu-icon.user-icon {
+  icon-size: 20px;
+  padding: 0 2px;
+}
+.system-switch-user-submenu-icon.default-icon {
+  icon-size: 16px;
+  padding: 0 4px;
+}
+
+#appMenu {
+  spinner-image: url("process-working.svg");
+  spacing: 4px;
+
+  .label-shadow { color: transparent; }
+}
+
+.aggregate-menu {
+  min-width: 21em;
+  .popup-menu-icon {
+    padding: 0 0;
+    margin: 0 0;
+    -st-icon-style: symbolic;
+  }
+
+  .popup-sub-menu .popup-menu-item :first-child {
+    &:ltr { /* 8px spacing + 2*4px padding */
+            padding-left: 10px; margin-left: em(16px); }
+    &:rtl { /* 8px spacing + 2*4px padding */
+            padding-right: 10px; margin-right: em(16px); }
+  }
+}
+
+.system-menu-action {
+  color: $secondary_fg_color;
+  border-radius: 100px; /* wish we could do 50% */
+  padding: ($large_size - 16px) / 2;
+  border: none;
+  -st-icon-style: symbolic; // >= 3.29.90
+
+  &:hover, &:focus {
+    background-color: $divider_color;
+    color: $fg_color;
+    border: none;
+    padding: ($large_size - 16px) / 2;
+  }
+  &:active { background-color: $track_color; color: $fg_color; }
+
+  & > StIcon { icon-size: 16px; }
+}
 
 //Activities Ripples
 .ripple-box {
   width: 48px;
   height: 48px;
   border-radius: 0 0 48px 0;
-  background-color: $inverse_track_color;
+  background-color: rgba($primary_color, 0.35);
   background-image: none;
   background-size: auto;
 }
@@ -1459,42 +1615,42 @@ StScrollBar {
   min-width: 32em;
 }
 
-  .nm-dialog-content {
-    spacing: 20px;
-    padding: 24px;
-  }
-  .nm-dialog-header-hbox { spacing: 10px; }
-  .nm-dialog-airplane-box { spacing: 12px; }
+.nm-dialog-content {
+  spacing: 20px;
+  padding: 24px;
+}
+.nm-dialog-header-hbox { spacing: 10px; }
+.nm-dialog-airplane-box { spacing: 12px; }
 
-  .nm-dialog-airplane-headline {
-    font-weight: bold;
-    text-align: center;
-  }
+.nm-dialog-airplane-headline {
+  font-weight: bold;
+  text-align: center;
+}
 
-  .nm-dialog-airplane-text { color: $fg_color; }
-  .nm-dialog-header-icon { icon-size: 32px; }
-  .nm-dialog-scroll-view { border: none; }
-  .nm-dialog-header { @include font(title); }
+.nm-dialog-airplane-text { color: $fg_color; }
+.nm-dialog-header-icon { icon-size: 32px; }
+.nm-dialog-scroll-view { border: none; }
+.nm-dialog-header { @include font(title); }
 
-  .nm-dialog-item {
-    font-size: 1em;
-    border-bottom: none;
-    border-radius: $windows_radius;
-    padding: 12px;
-    spacing: 20px;
-    &:hover, &:focus { background-color: $divider_color; }
-    &:active { background-color: $track_color; }
-  }
+.nm-dialog-item {
+  font-size: 1em;
+  border-bottom: none;
+  border-radius: $windows_radius;
+  padding: 12px;
+  spacing: 20px;
+  &:hover, &:focus { background-color: $divider_color; }
+  &:active { background-color: $track_color; }
+}
 
-  .nm-dialog-item:selected {
-    background-color: $primary_color;
-    color: $inverse_fg_color;
-  }
+.nm-dialog-item:selected {
+  background-color: $primary_color;
+  color: $inverse_fg_color;
+}
 
-  .nm-dialog-icons { spacing: .5em; }
-  .nm-dialog-icon { icon-size: 16px; }
-  .no-networks-label { color: $hint_fg_color; }
-  .no-networks-box { spacing: 12px; }
+.nm-dialog-icons { spacing: .5em; }
+.nm-dialog-icon { icon-size: 16px; }
+.no-networks-label { color: $hint_fg_color; }
+.no-networks-box { spacing: 12px; }
 
 /* OVERVIEW */
 
@@ -1525,18 +1681,18 @@ StScrollBar {
     &:checked {
       color: $inverse_fg_color;
       background-color: rgba($inverse_fg_color, 0.01) !important;
-      box-shadow: inset 0 2px 0 $primary_color;
+      box-shadow: inset 0 2px $primary_color;
     }
 
     &:first-child {
       border-right-width: 0;
       border-radius: $buttons_radius;
-      &:checked { border-radius: 0; }
+      &:checked { border-radius: 0 0 $buttons_radius $buttons_radius; }
     }
 
     &:last-child {
       border-radius: $buttons_radius;
-      &:checked { border-radius: 0; }
+      &:checked { border-radius: 0 0 $buttons_radius $buttons_radius; }
     }
   }
 }
@@ -1566,7 +1722,10 @@ StScrollBar {
     color: $inverse_fg_color;
     background-color: $primary_color;
     border-radius: $windows_radius;
+    border: none;
     padding: 4px 8px;
+    font-weight: normal;
+    font-size: 1em;
   }
 
   //search entry
@@ -1591,6 +1750,10 @@ StScrollBar {
     &:hover, &:focus {
       .search-entry-icon { color: $inverse_fg_color; }
     }
+
+    StLabel.hint-text {
+      color: $inverse_hint_fg_color;
+    }
   }
 
   //search results
@@ -1600,14 +1763,19 @@ StScrollBar {
   // }
 
   #searchResultsContent {
-    max-width: 1000px;
+    max-width: 1024px;
     padding-left: 20px;
     padding-right: 20px;
     spacing: 16px;
   }
 
   .search-section { spacing: 16px; } // This should be equal to #searchResultsContent spacing
-  .search-section-content { spacing: 32px; } // This is the space between the provider icon and the results container
+  .search-section-content {
+    spacing: 32px;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
   .search-statustext { // "no results"
     @extend %status_text;
   }
@@ -1835,8 +2003,61 @@ StScrollBar {
 
   .app-well-app > .overview-icon.overview-icon-with-label,
   .grid-search-result .overview-icon.overview-icon-with-label {
-    padding: 10px 8px 5px 8px;
+    padding: 10px 8px 15px 8px;
     spacing: 4px;
+  }
+
+  /* App Folders */
+  .app-folder {
+    background: none;
+
+    .overview-icon {
+      border-radius: 100px;
+    }
+  }
+
+  // expanded folder
+  .app-folder-dialog {
+    border-radius: 16px;
+    spacing: 12px;
+    background-color: rgba(#101010, 0.85);
+    box-shadow: none;
+    border: none;
+
+    & .folder-name-container {
+      padding: 24px 36px 0;
+      spacing: 12px;
+
+      & .folder-name-label,
+      & .folder-name-entry {
+        font-size: 18pt;
+        font-weight: bold;
+        color: $inverse_secondary_fg_color;
+      }
+
+      & .folder-name-entry { width: 300px; color: $inverse_secondary_fg_color; }
+
+      /* FIXME: this is to keep the label in sync with the entry */
+      & .folder-name-label { padding: 5px 7px; }
+
+      & .edit-folder-button {
+        @include button(flat-normal, $tc: $inverse_fg_color);
+        &:hover, &:focus { @include button(flat-hover, $tc: $inverse_fg_color); }
+        &:active { @include button(flat-active, $tc: $inverse_fg_color); }
+        &:insensitive { @include button(flat-insensitive, $tc: $inverse_fg_color); }
+
+        padding: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: 18px;
+
+        & > StIcon { icon-size: 16px }
+      }
+    }
+
+    & StButton#vhandle,
+    & StButton#vhandle:hover,
+    & StButton#vhandle:active { background-color: transparent; }
   }
 
   // Workspace pager

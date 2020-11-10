@@ -83,48 +83,67 @@ $nautilus_bg_color: if($titlebar == 'dark' and $variant == 'light', $base_color,
   &.maximized notebook,
   &.maximized notebook > stack { border-radius: 0; }
 
-  placessidebar.sidebar {
-    background-color: transparent;
-    border-radius: $windows_radius;
+  placessidebar {
+    background: none;
     margin-right: 6px;
 
     list {
-      background-color: transparent;
-      border-radius: $windows_radius;
+      background: none;
     }
 
-    row.sidebar-row {
+    row {
       padding-left: 6px;
-      border-radius: 0 $buttons_radius $buttons_radius 0;
+
+      &, &:hover, &:selected, &:active, &:selected:hover, &:selected:active, &:focus {
+        transition: none;
+        animation: none;
+        background: none;
+        box-shadow: none;
+      }
 
       &:selected button.sidebar-button  { @extend %selected_sidebar_button; }
 
-      image.sidebar-icon { color: $inverse_secondary_fg_color; }
-      label.sidebar-label { padding-left: 18px; color: $secondary_fg_color; }
+      image.sidebar-icon {
+        color: $inverse_secondary_fg_color;
+        margin-right: 6px;
+      }
+
+      label.sidebar-label {
+        padding-left: 18px;
+        color: $secondary_fg_color;
+        border-radius: 0 $buttons_radius $buttons_radius 0;
+      }
 
       &:hover {
-        background-color: rgba($divider_color, 0.0);
+        label.sidebar-label {
+          background-color: rgba($divider_color, 0.03);
+        }
       }
 
       &:backdrop { opacity: 0.85; }
 
       &:selected {
-        background-color: rgba($divider_color, 0.06);
         // font-weight: bold;
 
-        label.sidebar-label { color: if($variant == 'light', $primary_color, lighten($primary_color, 15%)); }
-        image.sidebar-icon { color: $inverse_fg_color; }
+        label.sidebar-label {
+          color: if($variant == 'light', $primary_color, lighten($primary_color, 15%));
+          background-color: rgba($divider_color, 0.06);
+        }
 
-        &:active { box-shadow: none; }
+        image.sidebar-icon { color: $inverse_fg_color; }
       }
     }
 
     separator { background-color: transparent; }
   }
 
+  $header-icon: if($titlebar == 'dark' and $variant == 'light',
+                -gtk-scaled(url('assets/header-icon-alt.png'), url('assets/header-icon-alt@2.png')),
+                -gtk-scaled(url('assets/header-icon.png'), url('assets/header-icon@2.png')));
+
   headerbar {
     background-color: if($solid == 'false', rgba($titlebar_bg_color, 0.97), $titlebar_bg_color);
-    background-image: if($titlebar == 'dark' and $variant == 'light', url("assets/scalable/header-icon-alt.svg"), url("assets/scalable/header-icon.svg"));
+    background-image: $header-icon;
     background-size: 48px auto;
     background-position: left bottom;
     background-repeat: no-repeat;
@@ -192,7 +211,6 @@ $nautilus_bg_color: if($titlebar == 'dark' and $variant == 'light', $base_color,
   // Floating status bar
   .floating-bar {
     @extend %osd;
-    // @extend .toolbar.osd;
 
     min-height: 32px;
     padding: 0;
@@ -285,6 +303,7 @@ $nautilus_bg_color: if($titlebar == 'dark' and $variant == 'light', $base_color,
 //   @extend .dim-label;
 // }
 
+%desktop-canvas-item,
 .nautilus-desktop.nautilus-canvas-item:not(:selected) {
   // background-color: rgba($black, $lower_opacity);
   color: $inverse_fg_color;
@@ -652,7 +671,7 @@ popover.omnibar list row:not(:last-child) {
 }
 
 entry.preferences-search {
-  @extend %entry.flat;
+  @extend %flat_entry;
 
   box-shadow: inset 0 -1px $border_color;
   background-color: $base_color;
@@ -794,14 +813,14 @@ buildperspective row {
 }
 
 layoutpane entry.search {
-  @extend %entry.flat;
+  @extend %flat_entry;
 
   box-shadow: inset 0 -1px $border_color;
   background-color: $base_color;
 }
 
 editortweak entry.search {
-  @extend %entry.flat;
+  @extend %flat_entry;
 
   margin-bottom: -1px;
   box-shadow: none;
@@ -1039,7 +1058,7 @@ overlay grid.horizontal > revealer > scrolledwindow.frame {
 }
 
 frame.documents-dropdown {
-  @extend toolbar.osd;
+  @extend %toolbar_osd;
 
   margin: 8px;
 
@@ -1313,6 +1332,12 @@ hdyleaflet {
       }
     }
   }
+
+  > separator.sidebar {
+    border-right-style: none;
+    background: none;
+    min-width: 0;
+  }
 }
 
 /************************
@@ -1362,10 +1387,8 @@ window.background.csd {
       border-bottom-width: 0;
     }
 
-    > overlay > stack > box.horizontal > grid.horizontal {
-      > scrolledwindow.contacts-contact-form {
-        border-bottom-right-radius: $windows_radius;
-      }
+    .contacts-contact-form {
+      border-bottom-right-radius: $windows_radius;
     }
   }
 }
@@ -1421,6 +1444,16 @@ task-list-view > box > revealer > box > button {
 }
 
 
+/***********
+ * Fractal *
+ ***********/
+.background.csd.main-window {
+  .sidebar.rooms-sidebar {
+    border-bottom-left-radius: $windows_radius;
+  }
+}
+
+
 /*************
  * Evolution *
  *************/
@@ -1464,6 +1497,7 @@ button.title label { min-height: $medium_size; }
 /*********
  * Geary *
  *********/
+window.geary-main-window.background.csd, // gtk 3.36.0 or later
 window#GearyMainWindow.background.csd {
   box.vertical > paned.horizontal > box.sidebar.vertical {
     border-bottom-left-radius: $windows_radius;
@@ -1482,6 +1516,33 @@ window#GearyMainWindow.background.csd {
           background: none;
           border-bottom-right-radius: $windows_radius;
         }
+      }
+    }
+  }
+}
+
+/************
+ * Terminal *
+ ************/
+window.background { // gnome-terminal 3.32 setting
+  > box.vertical > box.horizontal > frame {
+    > border {
+      border-width: 0 1px 0 0;
+    }
+
+    > scrolledwindow > viewport.frame {
+      list {
+        border-bottom-left-radius: $windows_radius;
+      }
+    }
+  }
+
+  > box.vertical > box.horizontal > stack {
+    > widget > notebook.frame {
+      border-width: 0;
+
+      > stack {
+        border-bottom-right-radius: $windows_radius;
       }
     }
   }
@@ -1514,15 +1575,23 @@ dialog.background.csd {
       }
     }
 
-    notebook > stack {
-      border-radius: 0 0 $windows_radius $windows_radius;
-    }
-
-    stack scrolledwindow.frame {
-      border-radius: $buttons_radius;
-
-      viewport.view.frame {
+    stack scrolledwindow {
+      &.frame {
         border-radius: $buttons_radius;
+
+        textview.view {
+          border-radius: $buttons_radius;
+
+          > text {
+            background: none;
+          }
+        }
+
+        treeview.view:not(:hover):not(:selected) { background: none; }
+      }
+
+      viewport.frame {
+        &.view { border-radius: $buttons_radius; }
       }
     }
   }
