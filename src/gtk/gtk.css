@@ -5982,7 +5982,7 @@ window.background.csd > headerbar.titlebar > leaflet > separator.sidebar {
 window.background.csd > stack:not(.titlebar),
 window.background.csd > hdyleaflet > stack.background,
 window.background.csd > leaflet > stack.background {
-  border-radius: 0 0 13px 13px;
+  border-radius: 0 0 5px 5px;
 }
 
 window.background.csd > box.horizontal > separator.sidebar,
@@ -6170,8 +6170,8 @@ popover.background datechooser label.weekday {
  * Gnome clocks *
  ****************/
 window.background.csd.unified {
-  border-top-left-radius: 13px;
-  border-top-right-radius: 13px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 window.background.csd.unified > deck > deck > deck > box.vertical > headerbar.titlebar.windowhandle > viewswitchertitle > squeezer > viewswitcher > box.horizontal > button.radio {
@@ -6186,12 +6186,12 @@ window.background.csd.unified > deck > deck > deck > box.vertical > headerbar.ti
  ****************/
 #weather-page,
 #weekly-forecast-frame {
-  border-bottom-right-radius: 13px;
+  border-bottom-right-radius: 5px;
 }
 
 #weather-page-content-view {
-  border-bottom-right-radius: 13px;
-  border-bottom-left-radius: 13px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 /*********
@@ -6233,7 +6233,7 @@ task-list-view > box > revealer > box > button {
  * Fractal *
  ***********/
 .background.csd.main-window .sidebar.rooms-sidebar {
-  border-bottom-left-radius: 13px;
+  border-bottom-left-radius: 5px;
   border-right: 1px solid rgba(0, 0, 0, 0.08);
 }
 
