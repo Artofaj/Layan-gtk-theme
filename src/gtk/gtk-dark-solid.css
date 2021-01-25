@@ -2707,16 +2707,16 @@ frame > paned > notebook > header, notebook.frame > header {
 
 notebook, notebook.frame {
   background-color: #31313a;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 
 notebook.frame frame > border {
   border: none;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 
 notebook.frame frame > list row.activatable {
-  border-radius: 10px;
+  border-radius: 2px;
 }
 
 notebook > header {
@@ -2728,7 +2728,7 @@ notebook > header {
 
 notebook > header.top {
   border-bottom-style: solid;
-  border-radius: 9px 9px 0 0;
+  border-radius: 1px 1px 0 0;
 }
 
 notebook > header.top > tabs {
@@ -2745,7 +2745,7 @@ notebook > header.top > tabs > tab:checked {
 
 notebook > header.bottom {
   border-top-style: solid;
-  border-radius: 0 0 9px 9px;
+  border-radius: 0 0 1px 1px;
 }
 
 notebook > header.bottom > tabs {
@@ -2762,7 +2762,7 @@ notebook > header.bottom > tabs > tab:checked {
 
 notebook > header.left {
   border-right-style: solid;
-  border-radius: 9px 0 0 9px;
+  border-radius: 1px 0 0 1px;
 }
 
 notebook > header.left > tabs {
@@ -2779,7 +2779,7 @@ notebook > header.left > tabs > tab:checked {
 
 notebook > header.right {
   border-left-style: solid;
-  border-radius: 0 9px 9px 0;
+  border-radius: 0 1px 1px 0;
 }
 
 notebook > header.right > tabs {
@@ -2948,7 +2948,7 @@ notebook > header.left tabs tab.reorderable-page, notebook > header.right tabs t
 
 notebook > stack:not(:only-child) {
   background-color: #31313a;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 
 /**************
@@ -5368,7 +5368,7 @@ paned.titlebar.horizontal headerbar {
 }
 
 .csd .tweak-categories {
-  border-bottom-left-radius: 13px;
+  border-bottom-left-radius: 5px;
 }
 
 .tweak {
@@ -5395,7 +5395,7 @@ paned.titlebar.horizontal headerbar {
 }
 
 .tweak-group-startup row.tweak-startup {
-  border-radius: 13px;
+  border-radius: 5px;
   background-color: transparent;
   background-image: none;
 }
@@ -6185,8 +6185,8 @@ window.background.csd.unified {
 }
 
 window.background.csd.unified > deck > deck > deck > box.vertical > headerbar.titlebar.windowhandle {
-  border-top-left-radius: 13px;
-  border-top-right-radius: 13px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   box-shadow: inset 0 -1px rgba(255, 255, 255, 0.08);
 }
 
@@ -6366,7 +6366,7 @@ window.background.csd > stack > grid > scrolledwindow > viewport > box > frame >
 }
 
 window.background.csd > stack > box > box > list {
-  border-bottom-left-radius: 13px;
+  border-bottom-left-radius: 5px;
 }
 
 /***********
