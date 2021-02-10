@@ -210,17 +210,20 @@ StScrollBar StBin#trough {
   background-color: rgba(255, 255, 255, 0.12);
 }
 
-StScrollBar StButton#vhandle, StScrollBar StButton#hhandle {
+StScrollBar StButton#vhandle,
+StScrollBar StButton#hhandle {
   border-radius: 100px;
   background-color: rgba(255, 255, 255, 0.5);
   margin: 4px;
 }
 
-StScrollBar StButton#vhandle:hover, StScrollBar StButton#hhandle:hover {
+StScrollBar StButton#vhandle:hover,
+StScrollBar StButton#hhandle:hover {
   background-color: rgba(255, 255, 255, 0.7);
 }
 
-StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
+StScrollBar StButton#vhandle:active,
+StScrollBar StButton#hhandle:active {
   background-color: #FFFFFF;
 }
 
@@ -228,15 +231,21 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
   background-color: rgba(255, 255, 255, 0.12);
 }
 
-#screenShieldNotifications StScrollBar StButton#vhandle, #overview StScrollBar StButton#vhandle, #screenShieldNotifications StScrollBar StButton#hhandle, #overview StScrollBar StButton#hhandle {
+#screenShieldNotifications StScrollBar StButton#vhandle, #overview StScrollBar StButton#vhandle,
+#screenShieldNotifications StScrollBar StButton#hhandle,
+#overview StScrollBar StButton#hhandle {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-#screenShieldNotifications StScrollBar StButton#vhandle:hover, #overview StScrollBar StButton#vhandle:hover, #screenShieldNotifications StScrollBar StButton#hhandle:hover, #overview StScrollBar StButton#hhandle:hover {
+#screenShieldNotifications StScrollBar StButton#vhandle:hover, #overview StScrollBar StButton#vhandle:hover,
+#screenShieldNotifications StScrollBar StButton#hhandle:hover,
+#overview StScrollBar StButton#hhandle:hover {
   background-color: rgba(255, 255, 255, 0.7);
 }
 
-#screenShieldNotifications StScrollBar StButton#vhandle:active, #overview StScrollBar StButton#vhandle:active, #screenShieldNotifications StScrollBar StButton#hhandle:active, #overview StScrollBar StButton#hhandle:active {
+#screenShieldNotifications StScrollBar StButton#vhandle:active, #overview StScrollBar StButton#vhandle:active,
+#screenShieldNotifications StScrollBar StButton#hhandle:active,
+#overview StScrollBar StButton#hhandle:active {
   background-color: #FFFFFF;
 }
 
@@ -406,7 +415,7 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
   font-size: 1em;
   font-weight: normal;
   color: rgba(255, 255, 255, 0.5);
-  padding-bottom: .4em;
+  padding-bottom: 0.4em;
 }
 
 .show-processes-dialog-subject,
@@ -1057,7 +1066,8 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
   spacing: 8px;
 }
 
-.ws-switcher-active-up, .ws-switcher-active-down {
+.ws-switcher-active-up,
+.ws-switcher-active-down {
   height: 48px;
   background-color: #5657f5;
   color: #FFFFFF;
@@ -1105,16 +1115,18 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
 #panel {
   background-color: rgba(37, 37, 45, 0.85);
   /* transition from solid to transparent */
-  transition-duration: 250ms;
   font-weight: bold;
   height: 28px;
+  transition-duration: 500ms;
 }
 
 #panel:overview, #panel.unlock-screen, #panel.login-screen, #panel.lock-screen {
+  transition-duration: 250ms;
   background-color: transparent;
 }
 
-#panel #panelLeft, #panel #panelCenter {
+#panel #panelLeft,
+#panel #panelCenter {
   spacing: 0;
 }
 
@@ -2010,7 +2022,7 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
 }
 
 .nm-dialog-icons {
-  spacing: .5em;
+  spacing: 0.5em;
 }
 
 .nm-dialog-icon {
@@ -3125,7 +3137,7 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
 
 .login-dialog-user-list {
   spacing: 12px;
-  padding: .2em;
+  padding: 0.2em;
   width: 23em;
 }
 
