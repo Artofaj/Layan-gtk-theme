@@ -827,11 +827,13 @@ StScrollBar {
   box-shadow: $shadow_3;
 }
 
+//This is the notification panel!
 .popup-menu-boxpointer {
   .popup-menu-content {
     margin: 5px 8px 12px 12px;
     background-color: transparent;
-    background-color: rgba($menu_bg_color, 0.95);
+    //full opacity
+    background-color: rgba($menu_bg_color, 1);
     border-radius: $windows_radius;
     box-shadow: $shadow_3;
   }
