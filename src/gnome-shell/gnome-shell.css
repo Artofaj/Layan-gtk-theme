@@ -976,7 +976,7 @@ StScrollBar StButton#hhandle:active {
 /* Pad OSD */
 .pad-osd-window {
   padding: 32px;
-  background-color: rgba(37, 37, 45, 0.85);
+  background-color: #25252d;
 }
 
 .pad-osd-window .pad-osd-title-box {
@@ -1096,7 +1096,7 @@ StScrollBar StButton#hhandle:active {
 /* Tiled window previews */
 .tile-preview {
   background-color: rgba(92, 107, 192, 0.3);
-  border: 1px solid #5C6BC0;
+  border: 1px solid #5c6bc0;
 }
 
 .tile-preview-left.on-primary {
@@ -1113,7 +1113,7 @@ StScrollBar StButton#hhandle:active {
 
 /* TOP BAR */
 #panel {
-  background-color: rgba(37, 37, 45, 0.85);
+  background-color: #25252d;
   /* transition from solid to transparent */
   font-weight: bold;
   height: 28px;
@@ -1133,7 +1133,7 @@ StScrollBar StButton#hhandle:active {
 
 #panel .panel-corner {
   -panel-corner-radius: 0;
-  -panel-corner-background-color: rgba(37, 37, 45, 0.85);
+  -panel-corner-background-color: #25252d;
   -panel-corner-border-width: 2px;
   -panel-corner-border-color: transparent;
 }
