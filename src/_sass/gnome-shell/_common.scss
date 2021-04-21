@@ -1106,6 +1106,7 @@ StScrollBar {
     color: $panel_secondary_fg_color;
     text-shadow: none;
     transition-duration: $longer_duration;
+    border-radius: 0;
 
     .app-menu-icon {
       -st-icon-style: symbolic;
@@ -1118,6 +1119,10 @@ StScrollBar {
     .app-menu-icon > StIcon,
     .popup-menu-arrow {
       icon-shadow: none;
+    }
+
+    StLabel {
+      border-radius: 0;
     }
 
     &:hover {

@@ -1157,6 +1157,7 @@ StScrollBar StButton#hhandle:active {
   color: rgba(255, 255, 255, 0.68);
   text-shadow: none;
   transition-duration: 225ms;
+  border-radius: 0;
 }
 
 #panel .panel-button .app-menu-icon {
@@ -1169,6 +1170,10 @@ StScrollBar StButton#hhandle:active {
 #panel .panel-button .app-menu-icon > StIcon,
 #panel .panel-button .popup-menu-arrow {
   icon-shadow: none;
+}
+
+#panel .panel-button StLabel {
+  border-radius: 0;
 }
 
 #panel .panel-button:hover {
